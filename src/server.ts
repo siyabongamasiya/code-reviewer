@@ -14,7 +14,6 @@ app.use(express.json());
 
 //serve static assets from public
 app.use(express.static(path.join(__dirname, "public")));
-
 app.get('/', (req : Request, res : Response) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 })
