@@ -8,5 +8,5 @@
     "strict": true
   },
   "include": ["src/**/*"],
-  "files": ["src/types/express.d.ts"]
+  "files": ["src/model/express.d.ts"]
 }
