@@ -1,6 +1,8 @@
-import express,{Express,Response,Request} from "express";
+import express,{Express,Response,Request, NextFunction} from "express";
 import dotenv from "dotenv";
+import path from "path";
 import { testConnection } from "./config/database";
+import { notFoundError } from "./middleware/errorHandler";
 
 dotenv.config();
 
@@ -9,9 +11,14 @@ const PORT = process.env.PORT || 4040;
 
 app.use(express.json());
 
+
+//serve static assets from public
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get('/', (req : Request, res : Response) => {
-  res.send('Welcome to the code collaboration review platform!')
+  res.sendFile(path.join(__dirname, "views", "index.html"));
 })
+app.use(notFoundError)
 
 
 const startServer = async () => {
