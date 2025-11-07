@@ -1,6 +1,7 @@
 import express,{Express,Response,Request, NextFunction} from "express";
 import dotenv from "dotenv";
 import path from "path";
+import authRouter from "./routes/authenticationRoutes";
 import { testConnection } from "./config/database";
 import { notFoundError } from "./middleware/errorHandler";
 
@@ -17,8 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get('/', (req : Request, res : Response) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 })
+app.use("/api/auth",authRouter)
 app.use(notFoundError)
-
 
 const startServer = async () => {
   await testConnection();

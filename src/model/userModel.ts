@@ -1,7 +1,7 @@
-interface User{
+export interface User{
     name:string,
     email:string,
-    password_hash:string,
+    password:string,
     role:string,
     profile_picture:string
 }
