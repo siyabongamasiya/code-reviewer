@@ -9,3 +9,9 @@ export const addProject = async (project: Project): Promise<Project> => {
   );
   return rows[0];
 };
+
+
+export const getAllprojects = async () : Promise<Project[]> => {
+  const { rows } = await query(`SELECT * FROM projects`);
+  return rows as Project[];
+};

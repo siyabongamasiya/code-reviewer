@@ -18,5 +18,16 @@ export const addProject = async (req: Request, res: Response) => {
 
     res.status(201).json(newProject); 
 
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error });
+  }
 };
+
+export const  getAllProjects = async (req: Request, res: Response) => {
+    try {
+        const projects = await projectService.getAllprojects()
+        res.status(200).json(projects)
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", error: error })
+    }
+}
