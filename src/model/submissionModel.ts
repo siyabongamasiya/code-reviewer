@@ -1,4 +1,4 @@
-interface Submission {
+export interface Submission {
   project_id: number;
   submitted_by: number;
   code_content: string;

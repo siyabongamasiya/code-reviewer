@@ -8,13 +8,13 @@ export const findUserByEmail = async (email: string) => {
 };
 
 export const createUser = async (user: User): Promise<User> => {
-  const { name, email, password, role, profile_picture } = user;
+  const { name, email, password, profile_picture } = user;
 
   const salts = await bcrypt.genSalt(10);
   const password_hash = await bcrypt.hash(password, salts);
   const { rows } = await query(
-    `INSERT INTO users (name,email,password_hash,role,profile_picture) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-    [name, email, password_hash, role, profile_picture]
+    `INSERT INTO users (name,email,password_hash,profile_picture) VALUES ($1,$2,$3,$4) RETURNING *`,
+    [name, email, password_hash, profile_picture]
   );
   return rows[0];
 };

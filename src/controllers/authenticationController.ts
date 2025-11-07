@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password, role, profile_picture } = req.body;
+  const { name, email, password,profile_picture } = req.body;
   if (!email || !password) {
     res.status(400).json({ message: "There are missing fields that are required!" });
     return;
@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     //create the user
-    const newUser = await userService.createUser({ name, email, password, role, profile_picture } as User);
+    const newUser = await userService.createUser({ name, email, password, profile_picture } as User);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error });
@@ -49,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
 
     const payload = { userId: user.id, userEmail: user.email };
     const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
+      expiresIn: "5h",
     });
 
     res.status(200).json({ message: "Login successful", token });

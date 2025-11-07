@@ -1,9 +1,14 @@
 export interface User{
+    id:number,
     name:string,
     email:string,
     password:string,
-    role:string,
     profile_picture:string
+}
+
+export interface Memberuser{
+    user_id:number,
+    role_in_project:string
 }
 
 // User
