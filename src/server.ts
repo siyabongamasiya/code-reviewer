@@ -1,9 +1,10 @@
-import express,{Express,Response,Request, NextFunction} from "express";
+import express,{Express,Response,Request} from "express";
 import dotenv from "dotenv";
 import path from "path";
 import authRouter from "./routes/authenticationRoutes";
 import { testConnection } from "./config/database";
 import { notFoundError } from "./middleware/errorHandler";
+import submissionRoutes from "./routes/submissionsRoutes";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.get('/', (req : Request, res : Response) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 })
 app.use("/api/auth",authRouter)
+app.use("/api/submissions",submissionRoutes)
 app.use(notFoundError)
 
 const startServer = async () => {
@@ -29,3 +31,6 @@ const startServer = async () => {
 };
 
 startServer()
+
+
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJFbWFpbCI6InNpeWFib25nYUBnbWFpbC5jb20iLCJpYXQiOjE3NjI1MDA5ODUsImV4cCI6MTc2MjUwNDU4NX0.J-UwHu0lWPuMV0ZBf_ATYIhoO3LxlLhzni5_GNx8t3s"

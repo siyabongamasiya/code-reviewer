@@ -1,6 +1,8 @@
 import {Response,Request} from "express";
 import * as userService from "../services/userService";
 import { User } from "../model/userModel";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 
 export const register = async (req: Request, res: Response) => {
@@ -22,5 +24,36 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error });
+  }
+};
+
+export const login = async (req: Request, res: Response) => {
+  const { email, password} = req.body;
+  if (!email || !password ) {
+    res.status(400).json({ message: "Email and Password are required!" });
+    return;
+  }
+
+  try {
+    const user = await userService.findUserByEmail(email);
+    
+    if (!user) {
+      return res.status(409).json({ message: "User does not exist!" });
+    }
+    
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+  
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials!" });
+    }
+
+    const payload = { userId: user.id, userEmail: user.email };
+    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ message: "Login successful", token });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" ,error : error});
   }
 };
