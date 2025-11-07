@@ -19,6 +19,7 @@ export const protect = async (
       (decodedJWT as JWTPayload).userEmail
     );
     req.user = authenticatedUser;
+    console.log(req.user)
     next();
   } else {
     res.status(401).json({ message: "Not Authorized" });

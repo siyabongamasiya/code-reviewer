@@ -5,6 +5,7 @@ import authRouter from "./routes/authenticationRoutes";
 import { testConnection } from "./config/database";
 import { notFoundError } from "./middleware/errorHandler";
 import submissionRoutes from "./routes/submissionsRoutes";
+import userRoutes from "./routes/usersRoutes";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.get('/', (req : Request, res : Response) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 })
 app.use("/api/auth",authRouter)
+app.use("/api/users",userRoutes)
 app.use("/api/submissions",submissionRoutes)
 app.use(notFoundError)
 

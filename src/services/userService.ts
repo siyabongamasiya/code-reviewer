@@ -18,3 +18,15 @@ export const createUser = async (user: User): Promise<User> => {
   );
   return rows[0];
 };
+
+export const getAllUsers = async () : Promise<User[]> => {
+  const { rows } = await query(`SELECT * FROM users`);
+  return rows as User[];
+};
+
+export const getUserById = async (id:number) : Promise<User> => {
+  const { rows } = await query(`SELECT * FROM users WHERE id = $1`,[id]);
+  return rows[0];
+};
+
+
