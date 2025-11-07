@@ -6,6 +6,7 @@ import { testConnection } from "./config/database";
 import { notFoundError } from "./middleware/errorHandler";
 import submissionRoutes from "./routes/submissionsRoutes";
 import userRoutes from "./routes/usersRoutes";
+import projectsRoutes from "./routes/projectsRoutes";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.get('/', (req : Request, res : Response) => {
 })
 app.use("/api/auth",authRouter)
 app.use("/api/users",userRoutes)
+app.use("/api/projects",projectsRoutes)
 app.use("/api/submissions",submissionRoutes)
 app.use(notFoundError)
 

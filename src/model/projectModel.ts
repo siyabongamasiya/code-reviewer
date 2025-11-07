@@ -1,4 +1,4 @@
-interface Project {
+export interface Project {
   name: string;
   description: string;
   created_by: number;
