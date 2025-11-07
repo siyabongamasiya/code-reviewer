@@ -29,3 +29,8 @@ export const updateSubmissionStatus = async (submissionId: number, newStatus: st
   const { rows } = await query(`UPDATE submissions SET status = $1 WHERE id = $2 RETURNING *`, [newStatus, submissionId]);
   return rows[0];
 }
+
+export const deleteSubmissionById = async (submissionId: number) : Promise<Submission> => {
+  const {rows} = await query(`DELETE FROM submissions WHERE id = $1 RETURNING *`, [submissionId]);
+  return rows[0];
+}

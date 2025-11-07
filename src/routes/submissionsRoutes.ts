@@ -1,14 +1,18 @@
 import { Router } from "express";
 import { protect } from "../middleware/authMiddleWare";
 import * as submissionsController from "../controllers/submissionsController";
+import * as commentsController from "../controllers/commentsController";
+
+
 
 
 const submissionRoutes = Router();
 submissionRoutes.use(protect)
 
-
 submissionRoutes.post("/",submissionsController.createSubmission)
 submissionRoutes.get("/:id",submissionsController.getSubmissionById)
+submissionRoutes.post("/:id/comments",commentsController.addComment)
+submissionRoutes.delete("/:id",submissionsController.deleteSubmissionById)
 submissionRoutes.post("/:id/status",submissionsController.updateSubmissionStatus)
 
 export default submissionRoutes;

@@ -1,4 +1,4 @@
-interface comment {
+export interface Comment {
   submission_id: number;
   commented_by: number;
   line_number: number;

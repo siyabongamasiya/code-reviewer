@@ -58,12 +58,25 @@ export const updateSubmissionStatus = async (req: Request, res: Response) => {
       submissionId,
       newStatus
     );
+    res.status(200).json({
+      message: "Status updated successfully",
+      updateSubmission: updatedSubmission,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error });
+  }
+};
+
+export const deleteSubmissionById = async (req: Request, res: Response) => {
+  try {
+    const submissionId = parseInt(req.params.id);
+    const deletedSubmission = await submissionsService.deleteSubmissionById(
+      submissionId
+    );
+
     res
       .status(200)
-      .json({
-        message: "Status updated successfully",
-        updateSubmission: updatedSubmission,
-      });
+      .json({ message: "Submission deleted successfully", deletedSubmission });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error });
   }
