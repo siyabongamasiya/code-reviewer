@@ -1,4 +1,4 @@
-interface Review {
+export interface Review {
   submission_id: number;
   reviewer_id: number;
   decision: string;

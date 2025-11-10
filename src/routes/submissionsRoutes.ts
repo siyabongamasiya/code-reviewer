@@ -17,7 +17,9 @@ submissionRoutes.get("/:id",submissionsController.getSubmissionById)
 submissionRoutes.post("/:id/comments",commentsController.addComment)
 submissionRoutes.get("/:id/comments",commentsController.getCommentsBySubmissionId)
 submissionRoutes.delete("/:id",submissionsController.deleteSubmissionById)
-submissionRoutes.patch("/:id/approve",reviewsController.approveSubmission)
+submissionRoutes.post("/:id/approve",reviewsController.makeReview)
+submissionRoutes.post("/:id/request-changes",reviewsController.makeReview)
+submissionRoutes.get("/:id/reviews",reviewsController.getReviewHistory)
 submissionRoutes.post("/:id/status",submissionsController.updateSubmissionStatus)
 
 export default submissionRoutes;

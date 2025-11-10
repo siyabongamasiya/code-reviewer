@@ -1,8 +1,22 @@
 import { query } from "../config/database";
+import { Review } from "../model/reviewModel";
 import { Submission } from "../model/submissionModel";
 
+export const makeReview = async (review: Review): Promise<Review> => {
+  const { submission_id, reviewer_id, decision, remarks } = review;
+  const { rows } = await query(
+    `INSERT INTO reviews (submission_id,reviewer_id,decision,remarks) VALUES ($1,$2,$3,$4) RETURNING *`,
+    [submission_id, reviewer_id, decision, remarks]
+  );
+  return rows[0];
+};
 
-export const approveSubmission = async (submissionId: number) : Promise<Submission> => {
-    const {rows} = await query(`UPDATE submissions SET status = 'approved' WHERE id = $1 RETURNING *`,[submissionId]);
-    return rows[0];
-}
+export const getReviewHistory = async (
+  submissionId: number
+): Promise<Review[]> => {
+  const { rows } = await query(
+    `SELECT * FROM reviews WHERE submission_id = $1`,
+    [submissionId]
+  );
+  return rows;
+};

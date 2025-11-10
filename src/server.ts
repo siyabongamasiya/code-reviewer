@@ -91,3 +91,11 @@ startServer();
 //{
 //    "content" : "update content"
 //}
+
+//make a review
+// {
+//   "submission_id": 6,
+//   "reviewer_id": 1,
+//   "decision": "Approved",
+//   "remarks": "Good!!"
+// }
