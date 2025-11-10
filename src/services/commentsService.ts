@@ -14,3 +14,9 @@ export const addComment = async (comment: Comment) :Promise<Comment> => {
 
   return rows[0];
 };
+
+
+export const getCommentsBySubmissionId = async (submissionId: number) : Promise<Comment[]> => {
+    const { rows } = await query(`SELECT * FROM usercomments WHERE submission_id = $1`, [submissionId]);
+    return rows;
+}

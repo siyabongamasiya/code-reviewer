@@ -12,6 +12,7 @@ submissionRoutes.use(protect)
 submissionRoutes.post("/",submissionsController.createSubmission)
 submissionRoutes.get("/:id",submissionsController.getSubmissionById)
 submissionRoutes.post("/:id/comments",commentsController.addComment)
+submissionRoutes.get("/:id/comments",commentsController.getCommentsBySubmissionId)
 submissionRoutes.delete("/:id",submissionsController.deleteSubmissionById)
 submissionRoutes.post("/:id/status",submissionsController.updateSubmissionStatus)
 

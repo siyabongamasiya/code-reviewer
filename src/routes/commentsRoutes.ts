@@ -7,6 +7,4 @@ const commentsRouter = Router();
 commentsRouter.use(commentsRouter)
 
 
-
-
 export default commentsRouter;
