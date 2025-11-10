@@ -8,5 +8,6 @@ commentsRouter.use(protect)
 
 commentsRouter.post("/",commentsController.addComment)
 commentsRouter.patch("/:id",commentsController.updateCommentByID)
+commentsRouter.delete("/:id",commentsController.deleteCommentByID)
 
 export default commentsRouter;

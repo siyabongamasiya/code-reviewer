@@ -25,3 +25,8 @@ export const updateCommentByID = async (commentId: number, newContent: string) :
     const { rows } = await query(`UPDATE usercomments SET content = $1 WHERE id = $2 RETURNING *`, [newContent, commentId]);
     return rows[0];
 }
+
+export const deleteCommentByID = async (commentId: number) : Promise<Comment> => {
+    const { rows } = await query(`DELETE FROM usercomments WHERE id = $1 RETURNING *`, [commentId]);
+    return rows[0];
+}
