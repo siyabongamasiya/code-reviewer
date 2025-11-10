@@ -20,3 +20,8 @@ export const getCommentsBySubmissionId = async (submissionId: number) : Promise<
     const { rows } = await query(`SELECT * FROM usercomments WHERE submission_id = $1`, [submissionId]);
     return rows;
 }
+
+export const updateCommentByID = async (commentId: number, newContent: string) : Promise<Comment> => {
+    const { rows } = await query(`UPDATE usercomments SET content = $1 WHERE id = $2 RETURNING *`, [newContent, commentId]);
+    return rows[0];
+}

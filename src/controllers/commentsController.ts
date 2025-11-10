@@ -25,3 +25,15 @@ export const getCommentsBySubmissionId = async (
     res.status(500).json({ message: "Internal server error", error: error });
   }
 };
+
+export const updateCommentByID = async (req: Request, res: Response) => {
+    try {
+        console.log("got here!")
+        const commentId = parseInt(req.params.id);
+        const newContent = req.body.content;
+        const updatedComment = await commentsService.updateCommentByID(commentId, newContent);
+        res.status(200).json(updatedComment);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", error: error })
+    }
+}

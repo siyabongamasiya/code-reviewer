@@ -7,6 +7,7 @@ import { notFoundError } from "./middleware/errorHandler";
 import submissionRoutes from "./routes/submissionsRoutes";
 import userRoutes from "./routes/usersRoutes";
 import projectsRoutes from "./routes/projectsRoutes";
+import commentsRouter from "./routes/commentsRoutes";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/comments", commentsRouter);
 app.use(notFoundError);
 
 const startServer = async () => {
