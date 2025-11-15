@@ -1,8 +1,10 @@
 export interface Review {
+  id:number,
   submission_id: number;
   reviewer_id: number;
   decision: string;
   remarks: string;
+  created_at:Date
 }
 
 // Review

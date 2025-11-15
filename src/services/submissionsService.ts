@@ -14,6 +14,12 @@ export const createSubmission = async (submission: Submission) : Promise<Submiss
   return rows[0];
 };
 
+export const getSubmissions = async () : Promise<Submission[]> => {
+  const { rows } = await query(`SELECT * FROM submissions`);
+  return rows;
+};
+
+
 export const getSubmissionsByProjectId = async (projectId: number) : Promise<Submission[]> => {
   const { rows } = await query(`SELECT * FROM submissions WHERE project_id = $1`, [projectId]);
   return rows;

@@ -1,8 +1,10 @@
 export interface Submission {
+  id:number,
   project_id: number;
   submitted_by: number;
   code_content: string;
   status: string;
+  created_at :Date
 }
 
 // Submission

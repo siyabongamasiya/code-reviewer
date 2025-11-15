@@ -11,6 +11,7 @@ projectsRoutes.use(protect)
 projectsRoutes.post("/",projectsController.addProject)
 projectsRoutes.get("/",projectsController.getAllProjects)
 projectsRoutes.post("/:id/members",projectsController.addProjectMember)
+projectsRoutes.get("/:id/stats",projectsController.getStatsByProjectId)
 projectsRoutes.post("/:id/submissions",submissionsController.getSubmissionByProjectId)
 projectsRoutes.delete("/:id/members/:userId",projectsController.removeMember)
 

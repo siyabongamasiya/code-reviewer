@@ -1,5 +1,14 @@
 import { Request, Response } from "express";
 import * as projectService from "../services/projectsService";
+import * as submissionService from "../services/submissionsService";
+import * as reviewService from "../services/reviewsService";
+import * as commentService from "../services/commentsService";
+import {
+  calculateAverageReviewTime,
+  calculateApprovalRejectionRate,
+  calculateReviewerActivity,
+  calculateTopCommentedSubmissions,
+} from "../utils/utils";
 
 export const addProject = async (req: Request, res: Response) => {
   try {
@@ -62,5 +71,30 @@ export const removeMember = async (req: Request, res: Response) => {
     res.status(200).json(removedUser);
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error });
+  }
+};
+
+export const getStatsByProjectId = async (req: Request, res: Response) => {
+  try {
+    const projectId = parseInt(req.params.id);
+
+    const submissions = await submissionService.getSubmissionsByProjectId(projectId)
+    const reviews = await reviewService.getReviewsByProjectId(projectId)
+    const comments = await commentService.getCommentsByprojectid(projectId)
+
+    const avgReviewTime = calculateAverageReviewTime(submissions, reviews);
+    const approvalStats = calculateApprovalRejectionRate(reviews);
+    const reviewerActivity = calculateReviewerActivity(reviews);
+    const topCommented = calculateTopCommentedSubmissions(comments);
+
+    res.json({
+      averageReviewTimeHours: avgReviewTime,
+      approvalStats,
+      reviewerActivity,
+      topCommentedSubmissions: topCommented.slice(0, 5),
+    });
+  } catch (error) {
+    console.error("Error generating stats:", error);
+    res.status(500).json({ message: "Error computing stats" });
   }
 };

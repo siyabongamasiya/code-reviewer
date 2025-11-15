@@ -20,3 +20,21 @@ export const getReviewHistory = async (
   );
   return rows;
 };
+
+export const getReviews = async (): Promise<Review[]> => {
+  const { rows } = await query(`SELECT * FROM reviews`);
+  return rows;
+};
+
+export const getReviewsByProjectId = async (
+  projectId: number
+): Promise<Review[]> => {
+  const { rows } = await query(
+    `SELECT r.*
+       FROM reviews r
+       JOIN submissions s ON r.submission_id = s.id
+       WHERE s.project_id = $1`,
+    [projectId]
+  );
+  return rows;
+};
