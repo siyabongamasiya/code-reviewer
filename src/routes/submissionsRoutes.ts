@@ -1,0 +1,25 @@
+import { Router } from "express";
+import { protect } from "../middleware/authMiddleWare";
+import * as submissionsController from "../controllers/submissionsController";
+import * as commentsController from "../controllers/commentsController";
+import * as reviewsController from "../controllers/reviewsController";
+
+
+
+
+
+
+const submissionRoutes = Router();
+submissionRoutes.use(protect)
+
+submissionRoutes.post("/",submissionsController.createSubmission)
+submissionRoutes.get("/:id",submissionsController.getSubmissionById)
+submissionRoutes.post("/:id/comments",commentsController.addComment)
+submissionRoutes.get("/:id/comments",commentsController.getCommentsBySubmissionId)
+submissionRoutes.delete("/:id",submissionsController.deleteSubmissionById)
+submissionRoutes.post("/:id/approve",reviewsController.makeReview)
+submissionRoutes.post("/:id/request-changes",reviewsController.makeReview)
+submissionRoutes.get("/:id/reviews",reviewsController.getReviewHistory)
+submissionRoutes.post("/:id/status",submissionsController.updateSubmissionStatus)
+
+export default submissionRoutes;

@@ -1,14 +1,33 @@
-import express from "express";
+import express, { Express, Response, Request } from "express";
 import dotenv from "dotenv";
+import path from "path";
+import authRouter from "./routes/authenticationRoutes";
 import { testConnection } from "./config/database";
+import { errorHandler, notFoundError } from "./middleware/errorHandler";
+import submissionRoutes from "./routes/submissionsRoutes";
+import userRoutes from "./routes/usersRoutes";
+import projectsRoutes from "./routes/projectsRoutes";
+import commentsRouter from "./routes/commentsRoutes";
 
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+const app: Express = express();
+const PORT = process.env.PORT || 4040;
 
 app.use(express.json());
 
+//serve static assets from public
+app.use(express.static(path.join(__dirname, "public")));
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "views", "index.html"));
+});
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRoutes);
+app.use("/api/projects", projectsRoutes);
+app.use("/api/submissions", submissionRoutes);
+app.use("/api/comments", commentsRouter);
+app.use(notFoundError);
+app.use(errorHandler);
 
 const startServer = async () => {
   await testConnection();
@@ -17,5 +36,67 @@ const startServer = async () => {
   });
 };
 
+startServer();
 
-startServer()
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJFbWFpbCI6InNpeWFib25nYUBnbWFpbC5jb20iLCJpYXQiOjE3NjI1MDA5ODUsImV4cCI6MTc2MjUwNDU4NX0.J-UwHu0lWPuMV0ZBf_ATYIhoO3LxlLhzni5_GNx8t3s"
+
+//add project
+// {
+//     "name" : "job tracker",
+//     "description" : "A project for tracking job applications",
+//     "created_by" : 1
+// }
+
+//login
+// {
+//   "email" : "siyabonga@gmail.com",
+//   "password" : "msiro"
+// }
+
+//create user
+// {
+//   "name" : "siyabonga",
+//   "email" : "siyabonga@gmail.com",
+//   "password" : "msiro",
+//   "profile_picture" : "https://www.someurl.com"
+// }
+
+//add member
+// {
+//   "user_Id" :1,
+//   "role_in_project" : "submitter"
+// }
+
+//add submission
+// {
+// "project_id":1,
+// "submitted_by":1,
+// "code_content" :"dajndjndlandaasidnaodajdoadaosd",
+// "status": "pending"
+// }
+
+//update status 
+// {
+//   "status" : "in_review"
+// }
+
+//add comment
+// {
+//   "submission_id": 6,
+//   "commented_by": 1,
+//   "line_number": 2,
+//   "content": "you can use errorhandler middleware for this ,no need to write it in the server file."
+// }
+
+//update comment
+//{
+//    "content" : "update content"
+//}
+
+//make a review
+// {
+//   "submission_id": 6,
+//   "reviewer_id": 1,
+//   "decision": "Approved",
+//   "remarks": "Good!!"
+// }
