@@ -94,18 +94,6 @@ cd code-review-platform
 npm install
 ```
 
-### **3. Create a `.env` File**
-Include:
-
-```
-DB_USER = postgres
-DB_HOST = localhost
-DB_DATABASE = Code Reviewer
-DB_PORT = 5432
-PORT = 4040
-JWT_SECRET = j2jrnfopfiz93@&qzxmclp
-```
-
 ### **4. Run Local PostgreSQL**
 
 ### **6. Start the Server**
