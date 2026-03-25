@@ -152,20 +152,38 @@ Authorization: Bearer <token>
 
 `POST /api/auth/register`
 
-```bash
-curl -X POST http://localhost:4040/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d "{\"name\":\"Masiya\",\"email\":\"masiya@gmail.com\",\"password\":\"P@ssw0rd123!\",\"profile_picture\":null}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/auth/register",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "name": "Masiya",
+    "email": "masiya@gmail.com",
+    "password": "P@ssw0rd123!",
+    "profile_picture": null
+  }
+}
 ```
 
 ### Login
 
 `POST /api/auth/login`
 
-```bash
-curl -X POST http://localhost:4040/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d "{\"email\":\"masiya@gmail.com\",\"password\":\"P@ssw0rd123!\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/auth/login",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "email": "masiya@gmail.com",
+    "password": "P@ssw0rd123!"
+  }
+}
 ```
 
 ---
@@ -176,27 +194,42 @@ curl -X POST http://localhost:4040/api/auth/login \
 
 `GET /api/users`
 
-```bash
-curl http://localhost:4040/api/users \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/users",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Get user by id
 
 `GET /api/users/:id`
 
-```bash
-curl http://localhost:4040/api/users/1 \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/users/1",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Get notifications
 
 `GET /api/users/:id/notifications`
 
-```bash
-curl http://localhost:4040/api/users/1/notifications \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/users/1/notifications",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ---
@@ -213,20 +246,34 @@ Body fields required by the API:
 - `description`
 - `created_by` (user id)
 
-```bash
-curl -X POST http://localhost:4040/api/projects \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"name\":\"POS Backend\",\"description\":\"API work\",\"created_by\":1}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/projects",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "name": "POS Backend",
+    "description": "API work",
+    "created_by": 1
+  }
+}
 ```
 
 ### Get all projects
 
 `GET /api/projects`
 
-```bash
-curl http://localhost:4040/api/projects \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/projects",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Add project member
@@ -238,38 +285,61 @@ Body fields required by the API:
 - `user_Id`
 - `role_in_project`
 
-```bash
-curl -X POST http://localhost:4040/api/projects/1/members \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"user_Id\":2,\"role_in_project\":\"reviewer\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/projects/1/members",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "user_Id": 2,
+    "role_in_project": "reviewer"
+  }
+}
 ```
 
 ### Remove project member
 
 `DELETE /api/projects/:id/members/:userId`
 
-```bash
-curl -X DELETE http://localhost:4040/api/projects/1/members/2 \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "DELETE",
+  "url": "http://localhost:4040/api/projects/1/members/2",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Project stats
 
 `GET /api/projects/:id/stats`
 
-```bash
-curl http://localhost:4040/api/projects/1/stats \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/projects/1/stats",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Get submissions by project id
 
 `POST /api/projects/:id/submissions`
 
-```bash
-curl -X POST http://localhost:4040/api/projects/1/submissions \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/projects/1/submissions",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ---
@@ -287,40 +357,67 @@ Body fields required by the API:
 - `code_content`
 - `status` (e.g. `pending`, `in_review`, `approved`, `changes_requested`)
 
-```bash
-curl -X POST http://localhost:4040/api/submissions \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"project_id\":1,\"submitted_by\":1,\"code_content\":\"console.log('hello')\",\"status\":\"pending\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/submissions",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "project_id": 1,
+    "submitted_by": 1,
+    "code_content": "console.log('hello')",
+    "status": "pending"
+  }
+}
 ```
 
 ### Get submission by id
 
 `GET /api/submissions/:id`
 
-```bash
-curl http://localhost:4040/api/submissions/1 \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/submissions/1",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Delete submission
 
 `DELETE /api/submissions/:id`
 
-```bash
-curl -X DELETE http://localhost:4040/api/submissions/1 \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "DELETE",
+  "url": "http://localhost:4040/api/submissions/1",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ### Update submission status
 
 `POST /api/submissions/:id/status`
 
-```bash
-curl -X POST http://localhost:4040/api/submissions/1/status \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"status\":\"in_review\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/submissions/1/status",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "status": "in_review"
+  }
+}
 ```
 
 ---
@@ -338,20 +435,35 @@ Body fields used by the service:
 - `line_number`
 - `content`
 
-```bash
-curl -X POST http://localhost:4040/api/submissions/1/comments \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"submission_id\":1,\"commented_by\":2,\"line_number\":10,\"content\":\"Consider renaming this variable\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/submissions/1/comments",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "submission_id": 1,
+    "commented_by": 2,
+    "line_number": 10,
+    "content": "Consider renaming this variable"
+  }
+}
 ```
 
 ### Get comments for a submission
 
 `GET /api/submissions/:id/comments`
 
-```bash
-curl http://localhost:4040/api/submissions/1/comments \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/submissions/1/comments",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ---
@@ -362,31 +474,56 @@ curl http://localhost:4040/api/submissions/1/comments \
 
 `POST /api/submissions/:id/approve`
 
-```bash
-curl -X POST http://localhost:4040/api/submissions/1/approve \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"submission_id\":1,\"reviewer_id\":2,\"decision\":\"approved\",\"remarks\":\"Looks good\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/submissions/1/approve",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "submission_id": 1,
+    "reviewer_id": 2,
+    "decision": "approved",
+    "remarks": "Looks good"
+  }
+}
 ```
 
 ### Request changes
 
 `POST /api/submissions/:id/request-changes`
 
-```bash
-curl -X POST http://localhost:4040/api/submissions/1/request-changes \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"submission_id\":1,\"reviewer_id\":2,\"decision\":\"changes_requested\",\"remarks\":\"Please add tests\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/submissions/1/request-changes",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "submission_id": 1,
+    "reviewer_id": 2,
+    "decision": "changes_requested",
+    "remarks": "Please add tests"
+  }
+}
 ```
 
 ### Review history
 
 `GET /api/submissions/:id/reviews`
 
-```bash
-curl http://localhost:4040/api/submissions/1/reviews \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "GET",
+  "url": "http://localhost:4040/api/submissions/1/reviews",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ---
@@ -399,31 +536,53 @@ These routes operate directly on the `usercomments` table.
 
 `POST /api/comments`
 
-```bash
-curl -X POST http://localhost:4040/api/comments \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"submission_id\":1,\"commented_by\":2,\"line_number\":10,\"content\":\"Another note\"}"
+```json
+{
+  "method": "POST",
+  "url": "http://localhost:4040/api/comments",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "submission_id": 1,
+    "commented_by": 2,
+    "line_number": 10,
+    "content": "Another note"
+  }
+}
 ```
 
 ### Update comment
 
 `PATCH /api/comments/:id`
 
-```bash
-curl -X PATCH http://localhost:4040/api/comments/1 \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d "{\"content\":\"Updated comment text\"}"
+```json
+{
+  "method": "PATCH",
+  "url": "http://localhost:4040/api/comments/1",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "content": "Updated comment text"
+  }
+}
 ```
 
 ### Delete comment
 
 `DELETE /api/comments/:id`
 
-```bash
-curl -X DELETE http://localhost:4040/api/comments/1 \
-  -H "Authorization: Bearer <token>"
+```json
+{
+  "method": "DELETE",
+  "url": "http://localhost:4040/api/comments/1",
+  "headers": {
+    "Authorization": "Bearer <token>"
+  }
+}
 ```
 
 ## 🙌 Final Notes
