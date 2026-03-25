@@ -54,7 +54,7 @@ export const addProjectMember = async (req: Request, res: Response) => {
     const addedUser = await projectService.addProjectMember(
       user_Id,
       project_Id,
-      role_in_project
+      role_in_project,
     );
     res.status(201).json(addedUser);
   } catch (error) {
@@ -78,9 +78,10 @@ export const getStatsByProjectId = async (req: Request, res: Response) => {
   try {
     const projectId = parseInt(req.params.id);
 
-    const submissions = await submissionService.getSubmissionsByProjectId(projectId)
-    const reviews = await reviewService.getReviewsByProjectId(projectId)
-    const comments = await commentService.getCommentsByprojectid(projectId)
+    const submissions =
+      await submissionService.getSubmissionsByProjectId(projectId);
+    const reviews = await reviewService.getReviewsByProjectId(projectId);
+    const comments = await commentService.getCommentsByprojectid(projectId);
 
     const avgReviewTime = calculateAverageReviewTime(submissions, reviews);
     const approvalStats = calculateApprovalRejectionRate(reviews);
@@ -96,5 +97,33 @@ export const getStatsByProjectId = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error generating stats:", error);
     res.status(500).json({ message: "Error computing stats" });
+  }
+};
+
+export const updateProject = async (req: Request, res: Response) => {
+  try {
+    const projectId = parseInt(req.params.id);
+    const { name, description } = req.body;
+
+    if (!name && !description) {
+      return res
+        .status(400)
+        .json({
+          message: "At least one field (name, description) is required",
+        });
+    }
+
+    const updatedProject = await projectService.updateProject(projectId, {
+      name,
+      description,
+    });
+
+    if (!updatedProject) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    res.status(200).json(updatedProject);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error });
   }
 };

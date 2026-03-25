@@ -129,6 +129,42 @@ npm start
 http://localhost:4040
 ```
 
+### Routes Summary (All Implemented Routes)
+
+Public:
+
+- `GET /`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+
+Protected (JWT required):
+
+- `GET /api/users`
+- `GET /api/users/:id`
+- `GET /api/users/:id/notifications`
+
+- `POST /api/projects`
+- `GET /api/projects`
+- `PATCH /api/projects/:id`
+- `POST /api/projects/:id/members`
+- `DELETE /api/projects/:id/members/:userId`
+- `GET /api/projects/:id/stats`
+- `POST /api/projects/:id/submissions`
+
+- `POST /api/submissions`
+- `GET /api/submissions/:id`
+- `DELETE /api/submissions/:id`
+- `POST /api/submissions/:id/status`
+- `POST /api/submissions/:id/comments`
+- `GET /api/submissions/:id/comments`
+- `POST /api/submissions/:id/approve`
+- `POST /api/submissions/:id/request-changes`
+- `GET /api/submissions/:id/reviews`
+
+- `POST /api/comments`
+- `PATCH /api/comments/:id`
+- `DELETE /api/comments/:id`
+
 ### Authentication Header (required for protected routes)
 
 All routes under these base paths are protected by JWT:
@@ -244,6 +280,12 @@ Headers:
 
 `POST /api/projects`
 
+URL:
+
+```
+http://localhost:4040/api/projects
+```
+
 Body fields required by the API:
 
 - `name`
@@ -271,6 +313,12 @@ Headers:
 
 `GET /api/projects`
 
+URL:
+
+```
+http://localhost:4040/api/projects
+```
+
 Headers:
 
 ```json
@@ -279,9 +327,53 @@ Headers:
 }
 ```
 
+### Update project
+
+`PATCH /api/projects/:id`
+
+URL:
+
+```
+http://localhost:4040/api/projects/1
+```
+
+You can update `name`, `description`, or both.
+
+Headers:
+
+```json
+{
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+Body (update both fields):
+
+```json
+{
+  "name": "Updated project name",
+  "description": "Updated project description"
+}
+```
+
+Body (update one field):
+
+```json
+{
+  "description": "Only description updated"
+}
+```
+
 ### Add project member
 
 `POST /api/projects/:id/members`
+
+URL:
+
+```
+http://localhost:4040/api/projects/1/members
+```
 
 Body fields required by the API:
 
@@ -308,6 +400,16 @@ Headers:
 
 `DELETE /api/projects/:id/members/:userId`
 
+URL:
+
+```
+http://localhost:4040/api/projects/1/members/2
+```
+
+Body:
+
+No body required.
+
 Headers:
 
 ```json
@@ -320,6 +422,12 @@ Headers:
 
 `GET /api/projects/:id/stats`
 
+URL:
+
+```
+http://localhost:4040/api/projects/1/stats
+```
+
 Headers:
 
 ```json
@@ -331,6 +439,16 @@ Headers:
 ### Get submissions by project id
 
 `POST /api/projects/:id/submissions`
+
+URL:
+
+```
+http://localhost:4040/api/projects/1/submissions
+```
+
+Body:
+
+No body required.
 
 Headers:
 
@@ -347,6 +465,12 @@ Headers:
 ### Create submission
 
 `POST /api/submissions`
+
+URL:
+
+```
+http://localhost:4040/api/submissions
+```
 
 Body fields required by the API:
 
@@ -377,6 +501,16 @@ Headers:
 
 `GET /api/submissions/:id`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1
+```
+
+Body:
+
+No body required.
+
 Headers:
 
 ```json
@@ -389,6 +523,16 @@ Headers:
 
 `DELETE /api/submissions/:id`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1
+```
+
+Body:
+
+No body required.
+
 Headers:
 
 ```json
@@ -400,6 +544,12 @@ Headers:
 ### Update submission status
 
 `POST /api/submissions/:id/status`
+
+URL:
+
+```
+http://localhost:4040/api/submissions/1/status
+```
 
 Headers:
 
@@ -423,6 +573,12 @@ Headers:
 ### Add comment to a submission
 
 `POST /api/submissions/:id/comments`
+
+URL:
+
+```
+http://localhost:4040/api/submissions/1/comments
+```
 
 Body fields used by the service:
 
@@ -453,6 +609,16 @@ Headers:
 
 `GET /api/submissions/:id/comments`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1/comments
+```
+
+Body:
+
+No body required.
+
 Headers:
 
 ```json
@@ -469,20 +635,27 @@ Headers:
 
 `POST /api/submissions/:id/approve`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1/approve
+```
+
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/submissions/1/approve",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "submission_id": 1,
-    "reviewer_id": 2,
-    "decision": "approved",
-    "remarks": "Looks good"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "submission_id": 1,
+  "reviewer_id": 2,
+  "decision": "approved",
+  "remarks": "Looks good"
 }
 ```
 
@@ -490,20 +663,27 @@ Headers:
 
 `POST /api/submissions/:id/request-changes`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1/request-changes
+```
+
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/submissions/1/request-changes",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "submission_id": 1,
-    "reviewer_id": 2,
-    "decision": "changes_requested",
-    "remarks": "Please add tests"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "submission_id": 1,
+  "reviewer_id": 2,
+  "decision": "changes_requested",
+  "remarks": "Please add tests"
 }
 ```
 
@@ -511,13 +691,21 @@ Headers:
 
 `GET /api/submissions/:id/reviews`
 
+URL:
+
+```
+http://localhost:4040/api/submissions/1/reviews
+```
+
+Body:
+
+No body required.
+
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/submissions/1/reviews",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -531,20 +719,27 @@ These routes operate directly on the `usercomments` table.
 
 `POST /api/comments`
 
+URL:
+
+```
+http://localhost:4040/api/comments
+```
+
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/comments",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "submission_id": 1,
-    "commented_by": 2,
-    "line_number": 10,
-    "content": "Another note"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "submission_id": 1,
+  "commented_by": 2,
+  "line_number": 10,
+  "content": "Another note"
 }
 ```
 
@@ -552,17 +747,24 @@ These routes operate directly on the `usercomments` table.
 
 `PATCH /api/comments/:id`
 
+URL:
+
+```
+http://localhost:4040/api/comments/1
+```
+
+Headers:
+
 ```json
 {
-  "method": "PATCH",
-  "url": "http://localhost:4040/api/comments/1",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "content": "Updated comment text"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "content": "Updated comment text"
 }
 ```
 
@@ -570,13 +772,21 @@ These routes operate directly on the `usercomments` table.
 
 `DELETE /api/comments/:id`
 
+URL:
+
+```
+http://localhost:4040/api/comments/1
+```
+
+Body:
+
+No body required.
+
+Headers:
+
 ```json
 {
-  "method": "DELETE",
-  "url": "http://localhost:4040/api/comments/1",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 

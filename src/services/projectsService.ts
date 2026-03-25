@@ -7,7 +7,7 @@ export const addProject = async (project: Project): Promise<Project> => {
   const { name, description, created_by } = project;
   const { rows } = await query(
     `INSERT INTO projects (name,description,created_by) VALUES ($1,$2,$3) RETURNING *`,
-    [name, description, created_by]
+    [name, description, created_by],
   );
   return rows[0];
 };
@@ -20,11 +20,11 @@ export const getAllprojects = async (): Promise<Project[]> => {
 export const addProjectMember = async (
   userId: number,
   projectId: number,
-  role: string
+  role: string,
 ): Promise<User> => {
   const { rows } = await query(
     `INSERT INTO projectmembers (project_id,user_id,role_in_project) VALUES ($1,$2,$3) RETURNING *`,
-    [userId, projectId, role]
+    [userId, projectId, role],
   );
   const projectMember: ProjectMember = rows[0];
   const { rows: users } = await query(`SELECT * FROM users WHERE id = $1`, [
@@ -35,15 +35,31 @@ export const addProjectMember = async (
 
 export const removeMember = async (
   userId: number,
-  projectId: number
+  projectId: number,
 ): Promise<User> => {
   await query(
     `DELETE FROM projectmembers WHERE project_id = $1 AND user_id = $2 RETURNING *`,
-    [userId, projectId]
+    [userId, projectId],
   );
 
   const { rows: users } = await query(`SELECT * FROM users WHERE id = $1`, [
     userId,
   ]);
   return users[0];
+};
+
+export const updateProject = async (
+  projectId: number,
+  updates: { name?: string; description?: string },
+) => {
+  const { name, description } = updates;
+  const { rows } = await query(
+    `UPDATE projects
+     SET name = COALESCE($1, name),
+         description = COALESCE($2, description)
+     WHERE id = $3
+     RETURNING *`,
+    [name ?? null, description ?? null, projectId],
+  );
+  return rows[0];
 };
