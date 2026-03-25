@@ -144,6 +144,14 @@ Use the JWT from `POST /api/auth/login`:
 Authorization: Bearer <token>
 ```
 
+### How to use the examples
+
+For each endpoint below:
+
+- Set the **HTTP method** and **URL** in Postman/Thunder Client.
+- Add the listed **headers**.
+- Paste the **JSON body** example into the **Body** (raw JSON).
+
 ---
 
 ## 🔐 Authentication
@@ -152,19 +160,20 @@ Authorization: Bearer <token>
 
 `POST /api/auth/register`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/auth/register",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "name": "Masiya",
-    "email": "masiya@gmail.com",
-    "password": "P@ssw0rd123!",
-    "profile_picture": null
-  }
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "name": "Masiya",
+  "email": "masiya@gmail.com",
+  "password": "P@ssw0rd123!",
+  "profile_picture": null
 }
 ```
 
@@ -172,17 +181,18 @@ Authorization: Bearer <token>
 
 `POST /api/auth/login`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/auth/login",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "email": "masiya@gmail.com",
-    "password": "P@ssw0rd123!"
-  }
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "email": "masiya@gmail.com",
+  "password": "P@ssw0rd123!"
 }
 ```
 
@@ -194,13 +204,11 @@ Authorization: Bearer <token>
 
 `GET /api/users`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/users",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -208,13 +216,11 @@ Authorization: Bearer <token>
 
 `GET /api/users/:id`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/users/1",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -222,13 +228,11 @@ Authorization: Bearer <token>
 
 `GET /api/users/:id/notifications`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/users/1/notifications",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -246,19 +250,20 @@ Body fields required by the API:
 - `description`
 - `created_by` (user id)
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/projects",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "name": "POS Backend",
-    "description": "API work",
-    "created_by": 1
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "name": "POS Backend",
+  "description": "API work",
+  "created_by": 1
 }
 ```
 
@@ -266,13 +271,11 @@ Body fields required by the API:
 
 `GET /api/projects`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/projects",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -285,18 +288,19 @@ Body fields required by the API:
 - `user_Id`
 - `role_in_project`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/projects/1/members",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "user_Id": 2,
-    "role_in_project": "reviewer"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "user_Id": 2,
+  "role_in_project": "reviewer"
 }
 ```
 
@@ -304,13 +308,11 @@ Body fields required by the API:
 
 `DELETE /api/projects/:id/members/:userId`
 
+Headers:
+
 ```json
 {
-  "method": "DELETE",
-  "url": "http://localhost:4040/api/projects/1/members/2",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -318,13 +320,11 @@ Body fields required by the API:
 
 `GET /api/projects/:id/stats`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/projects/1/stats",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -332,13 +332,11 @@ Body fields required by the API:
 
 `POST /api/projects/:id/submissions`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/projects/1/submissions",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -357,20 +355,21 @@ Body fields required by the API:
 - `code_content`
 - `status` (e.g. `pending`, `in_review`, `approved`, `changes_requested`)
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/submissions",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "project_id": 1,
-    "submitted_by": 1,
-    "code_content": "console.log('hello')",
-    "status": "pending"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "project_id": 1,
+  "submitted_by": 1,
+  "code_content": "console.log('hello')",
+  "status": "pending"
 }
 ```
 
@@ -378,13 +377,11 @@ Body fields required by the API:
 
 `GET /api/submissions/:id`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/submissions/1",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -392,13 +389,11 @@ Body fields required by the API:
 
 `DELETE /api/submissions/:id`
 
+Headers:
+
 ```json
 {
-  "method": "DELETE",
-  "url": "http://localhost:4040/api/submissions/1",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
@@ -406,17 +401,18 @@ Body fields required by the API:
 
 `POST /api/submissions/:id/status`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/submissions/1/status",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "status": "in_review"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "status": "in_review"
 }
 ```
 
@@ -435,20 +431,21 @@ Body fields used by the service:
 - `line_number`
 - `content`
 
+Headers:
+
 ```json
 {
-  "method": "POST",
-  "url": "http://localhost:4040/api/submissions/1/comments",
-  "headers": {
-    "Authorization": "Bearer <token>",
-    "Content-Type": "application/json"
-  },
-  "body": {
-    "submission_id": 1,
-    "commented_by": 2,
-    "line_number": 10,
-    "content": "Consider renaming this variable"
-  }
+  "Authorization": "Bearer <token>",
+  "Content-Type": "application/json"
+}
+```
+
+```json
+{
+  "submission_id": 1,
+  "commented_by": 2,
+  "line_number": 10,
+  "content": "Consider renaming this variable"
 }
 ```
 
@@ -456,13 +453,11 @@ Body fields used by the service:
 
 `GET /api/submissions/:id/comments`
 
+Headers:
+
 ```json
 {
-  "method": "GET",
-  "url": "http://localhost:4040/api/submissions/1/comments",
-  "headers": {
-    "Authorization": "Bearer <token>"
-  }
+  "Authorization": "Bearer <token>"
 }
 ```
 
