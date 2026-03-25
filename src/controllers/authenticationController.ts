@@ -41,6 +41,12 @@ export const login = async (req: Request, res: Response) => {
   }
 
   try {
+    if (!process.env.JWT_SECRET) {
+      return res
+        .status(500)
+        .json({ message: "Server misconfiguration: JWT_SECRET is not set" });
+    }
+
     const user = await userService.findUserByEmail(email);
 
     if (!user) {
@@ -60,6 +66,13 @@ export const login = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error: error });
+    const err = error as Error;
+    res.status(500).json({
+      message: "Internal server error",
+      error: {
+        name: err.name,
+        message: err.message,
+      },
+    });
   }
 };
