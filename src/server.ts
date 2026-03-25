@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import authRouter from "./routes/authenticationRoutes";
 import { testConnection } from "./config/database";
+import { initDb } from "./config/initDb";
 import { errorHandler, notFoundError } from "./middleware/errorHandler";
 import submissionRoutes from "./routes/submissionsRoutes";
 import userRoutes from "./routes/usersRoutes";
@@ -31,6 +32,7 @@ app.use(errorHandler);
 
 const startServer = async () => {
   await testConnection();
+  await initDb();
   app.listen(PORT, () => {
     console.log(`Server is listening on port http://localhost:${PORT}`);
   });
@@ -75,7 +77,7 @@ startServer();
 // "status": "pending"
 // }
 
-//update status 
+//update status
 // {
 //   "status" : "in_review"
 // }
